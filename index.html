@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      width: 320px;
+      transition: transform 0.3s ease;
+    }
+
+    .calculator:hover {
+      transform: scale(1.03);
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    #display {
+      width: 100%;
+      padding: 15px;
+      font-size: 26px;
+      text-align: right;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #333;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 20px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .number {
+      background: #ffffffcc;
+      color: #333;
+    }
+
+    .number:hover {
+      background-color: #e3f2fd;
+    }
+
+    .operator {
+      background: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    .operator:hover {
+      background-color: #81c784;
+    }
+
+    #equals {
+      background: #ffca28;
+      color: #6d4c41;
+    }
+
+    #equals:hover {
+      background-color: #fbc02d;
+    }
+
+    #clear {
+      background: #ef5350;
+      color: white;
+      grid-column: span 4;
+    }
+
+    #clear:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Modern Calculator</h2>
+    <input type="text" id="display" readonly />
+    <div class="buttons">
+      <button class="number" onclick="addToDisplay('7')">7</button>
+      <button class="number" onclick="addToDisplay('8')">8</button>
+      <button class="number" onclick="addToDisplay('9')">9</button>
+      <button class="operator" onclick="addToDisplay('+')">+</button>
+
+      <button class="number" onclick="addToDisplay('4')">4</button>
+      <button class="number" onclick="addToDisplay('5')">5</button>
+      <button class="number" onclick="addToDisplay('6')">6</button>
+      <button class="operator" onclick="addToDisplay('-')">−</button>
+
+      <button class="number" onclick="addToDisplay('1')">1</button>
+      <button class="number" onclick="addToDisplay('2')">2</button>
+      <button class="number" onclick="addToDisplay('3')">3</button>
+      <button class="operator" onclick="addToDisplay('*')">×</button>
+
+      <button class="number" onclick="addToDisplay('0')">0</button>
+      <button class="number" onclick="addToDisplay('.')">.</button>
+      <button id="equals" onclick="calculate()">=</button>
+      <button class="operator" onclick="addToDisplay('/')">÷</button>
+
+      <button id="clear" onclick="clearDisplay()">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    let currentInput = '';
+
+    function addToDisplay(value) {
+      currentInput += value;
+      display.value = currentInput;
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        currentInput = Function('"use strict";return (' + currentInput + ')')().toString();
+        display.value = currentInput;
+      } catch {
+        display.value = 'Error';
+        currentInput = '';
+      }
+    }
+  </script>
+</body>
+</html
